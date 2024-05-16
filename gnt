@@ -1,0 +1,38 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="google-site-verification" content="i3bVXD3ywVilJt3b0Denbr2n41les3p8ciIldduw4X0" />
+		<title>摸鱼小游戏 | 杀死国王</title>	
+		<link rel="icon" type="image/x-icon" href="https://haiyong.site/img/favicon.png"/>
+		<meta name="keywords" content="杀死国王" />
+		<meta name="description" content="杀死国王" /> 
+		<meta name="author" content="海拥(https://haiyong.site)" />
+		<meta name="copyright" content="海拥(https://haiyong.site)" />
+		<style>
+			@charset "UTF-8";
+			@font-face {
+			  font-family: "AddLGBitmap09";
+			  src: url("https://assets.codepen.io/217233/AddLGBitmap09.woff2") format("woff2"), url("https://assets.codepen.io/217233/AddLGBitmap09.woff") format("woff");
+			  font-weight: normal;
+			  font-style: normal;
+			  font-display: swap;
+			}
+			body {
+			  background: black;
+			  color: white;
+			  margin: 0;
+			  padding: 0;
+			  overflow: hidden;
+			  font-family: "AddLGBitmap09";
+			}
+			
+			.game_lose,
+			.game_win {
+			  position: absolute;
+			  background: rgba(14, 3, 13, 0.94);
+			  z-index: 99999;
+			  width: 100%;
+			  height: 100%;
+			  text-align: center;
+			  display: none;
+			}
