@@ -1,0 +1,97 @@
+ // Create a global audio array
+		    this._globalAudio = [];
+		
+		    // Iterate through all our samples
+		    audioArray.forEach(
+		      function (aud, index) {
+		        if (aud.stackSize != undefined) {
+		          this.stackSize = aud.stackSize;
+		        } else {
+		          this.stackSize = 1;
+		        }
+		
+		        // If the type of audio is not background music, stack it and play based on an index,
+		        // This means you can play small samples very quickly. You cannot play the same audio
+		        // Object until the current object has finished
+		
+		        var audioObject = [];
+		
+		        let a = new Audio();
+		        let b;
+		        a.preload = true;
+		        a.src = aud.source;
+		
+		        for (var i = 0; i < this.stackSize; i++) {
+		          b = new Audio();
+		          b.src = a.src;
+		
+		          b.onloadeddata = function () {
+		            this.loadedIndex++;
+		            this.progress = Math.ceil(
+		              (this.loadedIndex / this.sampleCount) * 100
+		            );
+		
+		            if (this.helpers) {
+		              console.clear();
+		              console.log(
+		                "%c 🔊 Audio module active ",
+		                "padding: 10px; background: #cbfd9f; color: #3b4e2a"
+		              );
+		              console.log(`Loading ${audioArray.length} audio sample(s)`);
+		              console.log(`Loading ${aud.name}`);
+		              console.log(`${this.progress}%`);
+		            }
+		
+		            if (this.progress == 100) {
+		              this.onLoaded();
+		            }
+		          }.bind(this);
+		
+		          audioObject.push(b);
+		        }
+		
+		        audioObject.index = 0;
+		        audioObject.maxIndex = this.stackSize;
+		
+		        this._globalAudio[aud.name] = audioObject;
+		      }.bind(this)
+		    );
+		  }
+		
+		  play(audio) {
+		    let sample = this._globalAudio[audio];
+		
+		    if (sample != undefined) {
+		      // Get the current audio object in the stack
+		      let index = sample.index;
+		      let aud = sample[index];
+		
+		      // Play the audio object
+		      if (this.sfxOn) {
+		        aud.play();
+		      }
+		
+		      // Increase the stack index or reset if it exceeds the max stack size
+		      if (sample.index > sample.maxIndex - 2) {
+		        sample.index = 0;
+		      } else {
+		        sample.index++;
+		      }
+		    } else {
+		      console.warn(`${audio} does not exist.`);
+		    }
+		  }
+		
+		  stop(audio) {
+		    let sample = this._globalAudio[audio];
+		
+		    if (sample != undefined) {
+		      // Get the current audio object in the stack
+		      let index = sample.index;
+		      let aud = sample[index];
+		
+		      // Stop the audio object
+		      aud.pause();
+		      aud.currentTime = 0;
+		    }
+		  }
