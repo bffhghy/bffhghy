@@ -1,0 +1,14 @@
+QObject::connect(webView, &QWebEngineView::iconChanged, [=](const QIcon &newIcon){
+    // 更新地址栏或书签栏中的图标
+    addressBar->setIcon(newIcon);
+    bookmarksManager->updateBookmarkIcon(currentUrl, newIcon);
+});
+ 
+// 或者在槽函数中处理
+connect(webView, SIGNAL(iconChanged(QIcon)), this, SLOT(updatePageIcon(QIcon)));
+ 
+//槽函数
+void YourClass::updatePageIcon(const QIcon &icon) {
+    // 在这里处理图标变化，例如更新UI中的图标
+    myStatusIcon->setIcon(icon);
+}
