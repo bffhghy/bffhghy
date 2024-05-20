@@ -1,0 +1,24 @@
+<!-- 登录 -->
+<el-form
+  :model="loginUser"
+  label-width="100px"
+  class="login-form sign-in-form"
+>
+  <el-form-item label="邮箱" prop="email">
+    <el-input v-model="loginUser.email" placeholder="Enter Email..." />
+  </el-form-item>
+  <el-form-item label="密码" prop="password">
+    <el-input
+      v-model="loginUser.password"
+      type="password"
+      placeholder="Enter Password..."
+    />
+  </el-form-item>
+  <el-form-item>
+    <el-button type="primary" class="submit-btn">提交</el-button>
+  </el-form-item>
+  <!-- 找回密码 -->
+  <el-form-item>
+    <p class="tiparea">忘记密码<a>立即找回</a></p>
+  </el-form-item>
+</el-form>
