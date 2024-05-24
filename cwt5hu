@@ -1,0 +1,24 @@
+/**
+ * 生成CSV文件
+ * @param users 数据来源
+ * @param csvFormat CSV 文件格式设置
+ */
+public static void generateCsvWithConfig(List<User> users, CSVFormat csvFormat){
+    // 可以通过设置FileWriter的编码来控制输出文件的编码格式
+    // FileWriter fileWriter = new FileWriter("ApacheCsv.csv", StandardCharsets.UTF_8);
+    try(FileWriter fileWriter = new FileWriter("ApacheCsv.csv");
+        CSVPrinter csvPrinter = new CSVPrinter(fileWriter, csvFormat)){
+        // 会将整个User 列表作为一条数据行写入
+        // csvPrinter.printRecord(users);
+        // 默认配置不会写表头，如果需要添加表头可以单独设置表头
+        // CSVFormat.DEFAULT.withHeader() 方法已经过时，通过Build进行设置
+        for (User user : users) {
+            csvPrinter.printRecord(user.getId(), user.getName(), user.getGender());
+        }
+        // 输出一个空行
+        csvPrinter.println();
+        csvPrinter.flush();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
