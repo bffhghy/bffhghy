@@ -1,0 +1,19 @@
+[HttpPost] // 如果需要传参则需要添加该参数，表示参数为必需
+public async Task<IActionResult> AddStaff(Staff staff)
+{
+​
+    if (ModelState.IsValid)
+    {
+        staff.CreateTime = DateTime.Now.ToLocalTime(); // 将UTC时间格式转换为本地时间格式
+        _context.Staff.Add(staff); // 通过数据库上下文添加数据模型类的构造函数
+        await _context.SaveChangesAsync(); // 异步等待（async await）保存新数据值数据库
+​
+        // 返回成功消息  
+        return Content("添加成功！", "text/plain");
+    }
+    else
+    {
+        // 如果模型状态无效，返回错误消息  
+        return BadRequest("无效的请求数据。");
+    }
+}
