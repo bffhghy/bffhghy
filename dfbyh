@@ -1,0 +1,6 @@
+import Vant from 'vant'
+import 'vant/lib/index.css'
+// 把vant中所有的组件都导入了
+Vue.use(Vant)
+<van-button type="primary">主要按钮</van-button>
+<van-button type="info">信息按钮</van-button>
