@@ -1,0 +1,10 @@
+防：直接从数据库中取出脏数据进行过滤
+攻击步骤：
+1.找到系统里面存在admin用户
+2.登陆页面和注册的页面我们发现都进行特殊字符处理；-按照以前的注入方法无法完成；
+3.特点：我们注册它的特殊字符串能够直接写到数据库当中；我们这里能不能将特殊字符读出来?
+二次注入实现方法
+1.找到系统里面存在admin用户，我们的目标是修改admin用户的密码，这个时候我们就可以实现后台登陆；
+2.我们要创建一个用户：admin’# ，密码任意 ：admin' #
+3.进入登陆界面：注册的 admin’# ，密码任意 ，  "SELECT * FROM users WHERE username='admin' #' and password='$password'";
+4.登陆成功之后的页面进行拼接：UPDATE users SET PASSWORD='$pass' where username='admin’# ' and password='$curr_pass',实现了对admin用户进行了修改密码；
