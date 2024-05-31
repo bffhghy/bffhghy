@@ -1,0 +1,8 @@
+test('fetchData 返回结果为 404', async () => {
+  expect.assertions(1) // 下面的 expect 至少执行一个
+  try {
+    await fetchData()
+  } catch (e) {
+    expect(e.toString()).toEqual('Error: Request failed with status code 404.')
+  }
+})
