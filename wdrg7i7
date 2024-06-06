@@ -1,0 +1,5 @@
+@Configuration
+@Import(MyImportSelector.class)
+public class AppConfig {
+ 
+}
