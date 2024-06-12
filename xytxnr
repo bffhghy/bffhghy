@@ -1,0 +1,73 @@
+        public string  checkSchemaServerValid(string value,string _checkSchema,string _cName)
+        {
+            serverValidErrorType = "";
+            string check_errmsg = "";
+            _checkSchema=_checkSchema.ToLower();
+            if (_checkSchema.IndexOf("ctrim") != -1) { value = value.Trim(); }
+            int _objlength = value.Length;
+ 
+            if (_checkSchema.IndexOf("notnull") == -1 && _objlength == 0) { return check_errmsg; }
+ 
+            string[] _schemaList = _checkSchema.Split('|');
+            for (var j = 0; j < _schemaList.Length; j++) {
+                string curSchema = _schemaList[j]; 
+                string curErrmsg="";
+                 if(curSchema=="notnull") { 
+                        curErrmsg = isNotNull(value)?"":_cName + "需要填写内容！";
+                 }else if(curSchema=="number") {
+                        curErrmsg =IsNumeric(value)?"":_cName + " 输入的数值不合理，请核对！"; 
+                 }else if(curSchema=="bnumber") {
+                        curErrmsg = IsBNumeric(value)?"":_cName +" 输入的数值应为>=0的正数，请核对！";                  
+                 }else if(curSchema=="snumber") {
+                        curErrmsg = IsSNumeric(value)?"":_cName + " 输入的数值应为<0的负数，请核对！"; 
+                 }else if(curSchema=="date") {
+                        curErrmsg = IsDate(value)?"": _cName + " 输入的日期不合理，请核对！";  
+                 }else if(curSchema.IndexOf("minlen")!=-1) {
+                        int _slen =int.Parse(curSchema.Substring("minlen".Length, curSchema.Length - "minlen".Length));
+                         curErrmsg= value.Length>= _slen ? "": _cName + " 的内容要求最小输入" + _slen.ToString() + "位，请核对！";
+                 }else if(curSchema.IndexOf("maxlen")!=-1) {
+                        int _mlen =int.Parse(curSchema.Substring("maxlen".Length, curSchema.Length - "maxlen".Length));
+                         curErrmsg= value.Length<= _mlen ? "": _cName + " 的内容要求最大输入" + _mlen.ToString() + "位，请核对！";
+                 }else if(curSchema.IndexOf("mustlen")!=-1) {
+                        int _mlen =int.Parse(curSchema.Substring("mustlen".Length, curSchema.Length - "mustlen".Length));
+                         curErrmsg= value.Length== _mlen ? "": _cName + " 的内容输入长度只能是" + _mlen.ToString() + "位，请核对！";
+                 }else if(curSchema=="time"){
+                        curErrmsg = IsDate(value)?"": _cName + " 输入的时间不合理，请核对！";  
+                 }else if(curSchema=="alpha"){
+                        curErrmsg =IsAlpha(value)?"": _cName + " 只能输入的数字、字母和下划线，请核对。";
+                 }else if(curSchema=="mail"){
+                     curErrmsg =IsEmail(value)?"": _cName + " 输入的邮件地址不合理，请核对。"; 
+                 }else if(curSchema=="phone"){
+                     curErrmsg =IsPhone(value)?"": _cName + " 输入的电话号码不合理，请核对。";
+                 }else if(curSchema=="mobile"){
+                     curErrmsg =IsMobilePhone(value)?"":_cName + " 输入的手机号码不合理，请核对。";
+                 }else if(curSchema=="money"){
+                     curErrmsg =IsNumeric(value)?"": _cName + " 输入的内容不符合货币类型的要求，请核对。";
+                 }else if(curSchema=="zip"){
+                     curErrmsg =IsZip(value)?"": _cName + " 输入的邮政编码不合理，请核对。";
+                 }else if(curSchema=="int"){
+                     curErrmsg =IsInt(value)?"": _cName + " 需要输入一个整数，请核对。";
+                 }else if(curSchema=="en"){
+                     curErrmsg =IsEnglish(value)?"":_cName + " 只能输入英文大小写字母，请核对。";
+                 }else if(curSchema=="cn"){
+                     curErrmsg =IsChineseCh(value)?"": _cName + " 只能输入中文，请核对。";
+                 }else if(curSchema=="url"){
+                     curErrmsg =IsURL(value)?"":_cName + " 输入的网址不合理，请核对。";
+                 }else if(curSchema=="idcard"){
+                     curErrmsg =CheckIDCard(value)?"": _cName + " 请输入合理的15或18位号码。";
+                 }else if(curSchema=="idcard18"){
+                     curErrmsg =CheckIDCard18(value)?"": _cName + " 请输入合理的18位号码。";
+                 }else if(curSchema=="idcard15"){
+                     curErrmsg =CheckIDCard(value)?"": _cName + " 请输入合理的15位号码。";
+                 }else if (curSchema == "an"){
+                     curErrmsg = IsAN(value) ? "" : _cName + " 必须包含数字和字母。";
+                 }  
+                 check_errmsg = curErrmsg; 
+                 if(check_errmsg!=""){
+                     serverValidErrorType = curSchema;
+                     break;
+                 }
+                }
+           return check_errmsg;
+            
+        }
