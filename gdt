@@ -1,0 +1,30 @@
+height: 200px;
+float: left;
+margin-right: 65px;}
+.lianxi p{ color:#141414; height:40px; line-height:40px;}
+.cert{ text-align:center;}
+.wenz{width: 984px;
+height: auto;
+overflow: hidden;
+background: #f8f8f8;
+padding: 20px;
+text-align:center;
+}
+.wenz p{ text-align: left;}
+.wenz img{ margin:20px 0px;}
+.timu{ width:100%; color:#141414; font-size:30px; height:60px; line-height:50px; text-align:center;}
+.content{ width:100%; text-align:center; height:auto; overflow:hidden; margin:10px 0px;}
+/*---bottom结束-----*/
+.bottom{ width: 1024px;margin: 0 auto;margin-top: 20px; height:143px;  background:url(../images/top-bg.jpg) repeat;}
+.bottom img{float:right; margin-right:20px; margin-top:20px;}
+.bottom .daoh{color: #111111;
+width: 550px;
+float: left;
+height: 50px;
+margin-top: 50px;
+font-size: 16px;
+margin-left: 30px;
+line-height: 50px;}
+.bottom .daoh ul{ }
+.bottom .daoh ul li{ width:100px; height:50px; float:left;  font-size:18px; line-height:50px; background:url(../images/jiange.png) right no-repeat; text-align:center;}
+/*---bottom结束-----*/
