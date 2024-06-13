@@ -1,0 +1,19 @@
+var player = new TCPlayer('realcoplayer', { 
+fileID: 111, 
+appID: '125407', 
+playbackRates: [0.5, 1, 1.25, 1.5, 2],
+        autoplay: false,
+        live: false,
+        x5_player: true,
+        volume: 0.5,
+        flash: true,
+        x5_player: true,
+        systemFullscreen: false,
+        playsinline: true,
+        x5_orientation: 0,
+        x5_type: 'h5',
+        allowFullScreen: false,
+        width:_w,
+        height:_h,
+ 
+});
