@@ -1,0 +1,14 @@
+<view class="DetailArrow displayBox" wx:if="{{spuList.length>0}}">
+  <image wx:if="{{!isShowDetail}}" bindtap="clickArrow" class="arrowImg"
+    src="{{imgUrl}}/upload/20220608/nextJt.png" lazy-load="true"></image>
+  <text wx:if="{{!isShowDetail}}" bindtap="clickArrow" style="margin-left:10rpx;">展开</text>
+
+  <image wx:if="{{isShowDetail}}" bindtap="clickArrow" class="arrowImg"
+    src="{{imgUrl}}/upload/20220608/topJt.png" lazy-load="true"></image>
+  <text wx:if="{{isShowDetail}}" bindtap="clickArrow" style="margin-left:10rpx;">收起</text>
+</view>
+<view style="height:56rpx;"></view>
+<image src="{{imgUrl}}/upload/20220608/explain.png" class="explain"></image>
+<!-- 你可能还喜欢 -->
+<view class="maybeLike">
+  <image src="{{imgUrl}}/upload/20220608/2323-2.png" class="maybeLikePng"></image>
