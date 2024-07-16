@@ -1,0 +1,15 @@
+cap = cv2.VideoCapture(0) # 通常 '0' 指的是内置摄像头
+cap.set(3,1280)     #设置摄像头的分辨率为 1280x720
+cap.set(4,720)
+ # success: 布尔值，表示是否成功捕获了帧
+    # img: 捕获的帧
+    success, img = cap.read() # 从摄像头读取当前帧
+ 
+    # 在图像中检测人脸
+    # img: 更新后的图像
+    # bboxs: 检测到的人脸边界框列表
+    img, bboxs = detector.findFaces(img, draw=False) #在图像中检测人脸，并返回更新后的图像和人脸边界框列表
+     # ---- 获取数据 ---- #
+            center = bbox["center"]  # 获取人脸中心坐标
+            x, y, w, h = bbox['bbox']  # 获取边界框的坐标和大小
+            score = int(bbox['score'][0] * 100)  # 获取识别置信度（百分比）
