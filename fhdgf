@@ -1,0 +1,70 @@
+    def reset_animals(self):  
+        """  
+        用于将游戏板上的动物随机重置为0到5之间的数字，  
+        其中0可能表示没有动物，1到5表示不同类型的动物。  
+        """        # 遍历由self.row和self.col确定的起始行和列，直到高度和宽度决定的结束行和列  
+        for row in range(self.row, self.row + self.height):  
+            # 对于每一行row，遍历由self.col和self.col + self.width确定的起始列和结束列  
+            for col in range(self.col, self.col + self.width):  
+                # 为当前位置(row, col)随机分配一个动物编号，编号范围从0到5  
+                # randint是random模块中的一个函数，用于生成一个指定范围内的随机整数  
+                self.animal[row][col] = randint(0, 5)  
+  
+    @staticmethod  
+    def rc_xy(row, col):  
+        """(row, col) -> (x, y)"""  
+        return int(Manager.list_x + (col - Manager.col) * Manager.__brick_size), int \  
+            (Manager.list_y + (row - Manager.row) * Manager.__brick_size)  
+  
+    @staticmethod  
+    def xy_rc(x, y):  
+        """(x, y) -> (row, col)"""  
+        return int((y - Manager.list_y) / Manager.__brick_size + Manager.row), int \  
+            ((x - Manager.list_x) / Manager.__brick_size + Manager.col)  
+  
+    @staticmethod  
+    def draw_brick(x, y):  
+        """Draw a brick at (x, y)."""  
+        brick = Element(Element.brick, (x, y))  
+        Manager.screen.blit(brick.image, brick.rect)  
+  
+    def draw_task(self, task_animal_num, which_animal, board_position=(400, 90), animal_position=(430, 35),  
+                  txt_position=(455, 60)):  
+        """  
+        绘制任务板  
+        """        txt_size = 24  
+        txt_color = (0, 0, 0)  
+        Board(Board.task_board, board_position).draw(self.screen)  
+        if which_animal == 6:  
+            task_animal = Element(Element.ice, animal_position)  
+        else:  
+            task_animal = Element(Element.animals[which_animal], animal_position)  
+        task_animal.image = pygame.transform.smoothscale(task_animal.image, (40, 40))  
+        task_animal.draw(self.screen)  
+        if which_animal == 6:  
+            if task_animal_num - self.ice_num <= 0:  
+                Board(Board.ok, (txt_position[0], txt_position[1] + 15)).draw(self.screen)  
+            else:  
+                self.load_text(str(task_animal_num - self.ice_num), txt_position, txt_size, txt_color)  
+        else:  
+            if task_animal_num - self.animal_num[which_animal] <= 0:  
+                Board(Board.ok, (txt_position[0], txt_position[1] + 15)).draw(self.screen)  
+            else:  
+                self.load_text(str(task_animal_num - self.animal_num[which_animal]), txt_position, txt_size, txt_color)  
+  
+    def draw(self):  
+        """绘制背景、动物等元素。"""  
+        # 绘制背景  
+        self.screen.blit(Manager.__bg, (0, 0))  
+        # 显示剩余步数  
+        Board(Board.step_board, (0, 142)).draw(self.screen)  
+        tens, single = divmod(self.step, 10)  
+        if tens == 0:  
+            Board(Board.num_format % single, (790, 110)).draw(self.screen)  
+        else:  
+            Board(Board.num_format % tens, (775, 110)).draw(self.screen)  
+            Board(Board.num_format % single, (805, 110)).draw(self.screen)  
+        # 显示关卡和暂停按钮  
+        Board(Board.level_format % self.level, (30, 105)).draw(self.screen)  
+        Element(Element.stop, Element.stop_position).draw(self.screen)  
+  
