@@ -1,0 +1,15 @@
+public class Animal {
+    void makeSound() {
+        System.out.println("Some sound");
+    }
+}
+
+public class Dog extends Animal {
+    @Override
+    void makeSound() {
+        System.out.println("Bark");
+    }
+}
+
+Animal myDog = new Dog();
+myDog.makeSound(); // 输出 "Bark"
